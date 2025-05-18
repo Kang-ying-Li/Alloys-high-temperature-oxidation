@@ -107,7 +107,6 @@ def objective(trial):
             optimizer.step()
             train_loop.set_postfix(loss=loss.item())
 
-        # 验证
         model.eval()
         val_loss = 0.0
         with torch.no_grad():
@@ -174,7 +173,6 @@ for epoch in range(num_epochs):
         optimizer.step()
         train_loop.set_postfix(loss=loss.item())
 
-    # 使用测试集进行验证（注意：实际应用中建议保留独立验证集）
     model.eval()
     with torch.no_grad():
         test_loss = 0.0
@@ -183,7 +181,6 @@ for epoch in range(num_epochs):
             test_loss += criterion(test_outputs, test_y).item()
         test_loss /= len(test_loader)
 
-    # 早停机制
     if test_loss < best_loss:
         best_loss = test_loss
         counter = 0
